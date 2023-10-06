@@ -1,9 +1,7 @@
-﻿using Elements.Core;
-using FrooxEngine;
+﻿using FrooxEngine;
 using FrooxEngine.UIX;
 using HarmonyLib;
 using ResoniteModLoader;
-using static FrooxEngine.FinalIK.IKSolverVR;
 
 namespace Context_Menu_Funnies
 {
