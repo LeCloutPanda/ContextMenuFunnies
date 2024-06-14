@@ -10,6 +10,7 @@ namespace Context_Menu_Funnies
         public override string Author => "LeCloutPanda";
         public override string Name => "Context Menu Funnies";
         public override string Version => "0.0.1";
+        public override string Link => "https://github.com/LeCloutPanda/ContextMenuFunnies/";
 
         public static ModConfiguration config;
         [AutoRegisterConfigKey] private static ModConfigurationKey<bool> MASTER_ENABLED = new ModConfigurationKey<bool>("Enabled", "", () => true);
