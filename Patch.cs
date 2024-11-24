@@ -88,12 +88,15 @@ public class ContextMenuFunnies : ResoniteMod
 	{
 		[HarmonyPostfix]
 		[HarmonyPatch("Initialize")]
-		public static void Postfix(ContextMenuItem __instance, OutlinedArc arc)
+		public static void InitializePostfix(ContextMenuItem __instance, OutlinedArc arc)
 		{
-			if (!config.GetValue(MASTER_ENABLED) || __instance == null || arc == null || __instance.Slot.ActiveUserRoot.ActiveUser != __instance.LocalUser) return;
+			if (!config.GetValue(MASTER_ENABLED) || __instance == null || __instance.Slot == null || arc == null) return;
 			
-			ContextMenu menu = __instance.Slot.GetComponentInParents<ContextMenu>();
-			Chirality? side = menu?.Pointer.Target.GetComponent<InteractionLaser>().Side;
+			User activeUser = __instance.Slot.ActiveUserRoot?.ActiveUser;
+			if (activeUser == null || activeUser != __instance.LocalUser) return;
+			
+			ContextMenu menu = __instance.Slot?.GetComponentInParents<ContextMenu>();
+			Chirality? side = menu?.Pointer?.Target?.GetComponent<InteractionLaser>()?.Side;
 			if (menu == null || side == null || menu.Slot.ActiveUserRoot.ActiveUser != __instance.LocalUser) return;
 			
 			arc.RoundedCornerRadius.Value = side == Chirality.Right ? config.GetValue(RIGHT_ROUNDED_CORNER_RADIUS) : config.GetValue(LEFT_ROUNDED_CORNER_RADIUS);
@@ -101,16 +104,19 @@ public class ContextMenuFunnies : ResoniteMod
 		
 		[HarmonyPostfix]
 		[HarmonyPatch("UpdateColor", new Type[] { })]
-		public static void Postfix(ContextMenuItem __instance, SyncRef<Button> ____button)
+		public static void UpdateColorPostfix(ContextMenuItem __instance, SyncRef<Button> ____button)
 		{
-			if (!config.GetValue(MASTER_ENABLED) || __instance == null || ____button == null || __instance.Slot.ActiveUserRoot.ActiveUser != __instance.LocalUser) return;
+			if (!config.GetValue(MASTER_ENABLED) || __instance == null || __instance.Slot == null || ____button == null) return;
 			
-			var colorDrive = ____button.Target?.ColorDrivers[0];
-			if (colorDrive == null) return;
-
-			ContextMenu menu = __instance.Slot.GetComponentInParents<ContextMenu>();
-			Chirality? side = menu?.Pointer.Target.GetComponent<InteractionLaser>().Side;
+			User activeUser = __instance.Slot.ActiveUserRoot?.ActiveUser;
+			if (activeUser == null || activeUser != __instance.LocalUser) return;
+			
+			ContextMenu menu = __instance.Slot?.GetComponentInParents<ContextMenu>();
+			Chirality? side = menu?.Pointer?.Target?.GetComponent<InteractionLaser>()?.Side;
 			if (menu == null || side == null || menu.Slot.ActiveUserRoot.ActiveUser != __instance.LocalUser) return;
+			
+			var colorDrive = ____button?.Target?.ColorDrivers[0];
+			if (colorDrive == null) return;
 			
 			var alpha = side == Chirality.Right ? config.GetValue(RIGHT_FILL_COLOR_ALPHA) : config.GetValue(LEFT_FILL_COLOR_ALPHA);
 			
