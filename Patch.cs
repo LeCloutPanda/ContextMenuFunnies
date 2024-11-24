@@ -92,8 +92,9 @@ public class ContextMenuFunnies : ResoniteMod
 		{
 			if (!config.GetValue(MASTER_ENABLED) || __instance == null || arc == null || __instance.Slot.ActiveUserRoot.ActiveUser != __instance.LocalUser) return;
 			
-			Chirality? side = __instance.Slot.GetComponentInParents<ContextMenu>()?.Pointer.Target.GetComponent<InteractionLaser>().Side;
-			if (side == null) return;
+			ContextMenu menu = __instance.Slot.GetComponentInParents<ContextMenu>();
+			Chirality? side = menu?.Pointer.Target.GetComponent<InteractionLaser>().Side;
+			if (menu == null || side == null || menu.Slot.ActiveUserRoot.ActiveUser != __instance.LocalUser) return;
 			
 			arc.RoundedCornerRadius.Value = side == Chirality.Right ? config.GetValue(RIGHT_ROUNDED_CORNER_RADIUS) : config.GetValue(LEFT_ROUNDED_CORNER_RADIUS);
 		}
@@ -106,9 +107,10 @@ public class ContextMenuFunnies : ResoniteMod
 			
 			var colorDrive = ____button.Target?.ColorDrivers[0];
 			if (colorDrive == null) return;
-			
-			Chirality? side = __instance.Slot.GetComponentInParents<ContextMenu>()?.Pointer.Target.GetComponent<InteractionLaser>().Side;
-			if (side == null) return;
+
+			ContextMenu menu = __instance.Slot.GetComponentInParents<ContextMenu>();
+			Chirality? side = menu?.Pointer.Target.GetComponent<InteractionLaser>().Side;
+			if (menu == null || side == null || menu.Slot.ActiveUserRoot.ActiveUser != __instance.LocalUser) return;
 			
 			var alpha = side == Chirality.Right ? config.GetValue(RIGHT_FILL_COLOR_ALPHA) : config.GetValue(LEFT_FILL_COLOR_ALPHA);
 			
