@@ -11,7 +11,7 @@ namespace Context_Menu_Funnies
     {
         public override string Author => "LeCloutPanda";
         public override string Name => "Context Menu Funnies";
-        public override string Version => "1.2.0";
+        public override string Version => "1.2.1";
         public override string Link => "https://github.com/LeCloutPanda/ContextMenuFunnies/";
 
         [AutoRegisterConfigKey] private static ModConfigurationKey<bool> MASTER_ENABLED = new ModConfigurationKey<bool>("Enabled", "", () => true);
@@ -57,11 +57,12 @@ namespace Context_Menu_Funnies
         [HarmonyPatch(typeof(ContextMenu))]
         class ContextMenuPatch
         {
-
             [HarmonyPrefix]
             [HarmonyPatch(typeof(ContextMenu), "OpenMenu")]
             static void PrefixOpenMenu(ContextMenu __instance, Sync<float> ___Separation, Sync<float> ___RadiusRatio, SyncRef<ArcLayout> ____arcLayout, SyncRef<OutlinedArc> ____innerCircle, SyncRef<Image> ____iconImage, SyncRef ____currentSummoner)
             {
+                if (__instance.World.IsUserspace()) return;
+
                 if (config.GetValue(MASTER_ENABLED))
                 {
                     __instance.RunInUpdates(1, () =>
@@ -98,6 +99,8 @@ namespace Context_Menu_Funnies
             [HarmonyPatch(typeof(ContextMenu), "OpenMenu")]
             static void PostfixOpenMenu(ContextMenu __instance, Sync<float> ___RadiusRatio)
             {
+                if (__instance.World.IsUserspace()) return;
+
                 if (config.GetValue(MASTER_ENABLED))
                 {
                     if (__instance.Slot.ActiveUserRoot.ActiveUser != __instance.LocalUser) return;
@@ -109,22 +112,22 @@ namespace Context_Menu_Funnies
             [HarmonyPatch(typeof(ContextMenu), "Close")]
             static void PrefixClose(ContextMenu __instance, SyncRef<ArcLayout> ____arcLayout)
             {
+                if (__instance.World.IsUserspace()) return;
+
+                if (config.GetValue(MASTER_ENABLED))
                 {
-                    if (config.GetValue(MASTER_ENABLED))
+                    __instance.RunInUpdates(3, () =>
                     {
-                        __instance.RunInUpdates(3, () =>
-                        {
-                            if (__instance.Slot.ActiveUserRoot.ActiveUser != __instance.LocalUser) return;
+                        if (__instance.Slot.ActiveUserRoot.ActiveUser != __instance.LocalUser) return;
 
-                            Chirality side = __instance.Pointer.Target.GetComponent<InteractionLaser>().Side;
-                            float arc = side == Chirality.Right ? config.GetValue(RIGHT_ARCLAYOUT_ARC) : config.GetValue(LEFT_ARCLAYOUT_ARC);
-                            CurvePreset animationCurve = side == Chirality.Right ? config.GetValue(RIGHT_ANIMATION_CURVE) : config.GetValue(LEFT_ANIMATION_CURVE);
-                            float animationTime = side == Chirality.Right ? config.GetValue(RIGHT_ANIMATION_TIME) : config.GetValue(LEFT_ANIMATION_TIME);
+                        Chirality side = __instance.Pointer.Target.GetComponent<InteractionLaser>().Side;
+                        float arc = side == Chirality.Right ? config.GetValue(RIGHT_ARCLAYOUT_ARC) : config.GetValue(LEFT_ARCLAYOUT_ARC);
+                        CurvePreset animationCurve = side == Chirality.Right ? config.GetValue(RIGHT_ANIMATION_CURVE) : config.GetValue(LEFT_ANIMATION_CURVE);
+                        float animationTime = side == Chirality.Right ? config.GetValue(RIGHT_ANIMATION_TIME) : config.GetValue(LEFT_ANIMATION_TIME);
 
-                            if (animationTime > 0.0f) ____arcLayout.Target.Arc.TweenFromTo(____arcLayout.Target.Arc.Value, 0.0f, animationTime, animationCurve);
-                            else ____arcLayout.Target.Arc.Value = arc;
-                        });
-                    }
+                        if (animationTime > 0.0f) ____arcLayout.Target.Arc.TweenFromTo(____arcLayout.Target.Arc.Value, 0.0f, animationTime, animationCurve);
+                        else ____arcLayout.Target.Arc.Value = arc;
+                    });
                 }
             }
 
@@ -135,6 +138,8 @@ namespace Context_Menu_Funnies
                 [HarmonyPatch("Initialize")]
                 public static void InitializePostfix(ContextMenuItem __instance, OutlinedArc arc)
                 {
+                    if (__instance.World.IsUserspace()) return;
+
                     if (!config.GetValue(MASTER_ENABLED) || __instance == null || __instance.Slot == null || arc == null) return;
 
                     User activeUser = __instance.Slot.ActiveUserRoot?.ActiveUser;
@@ -151,6 +156,8 @@ namespace Context_Menu_Funnies
                 [HarmonyPatch("UpdateColor", new Type[] { })]
                 public static void UpdateColorPostfix(ContextMenuItem __instance, SyncRef<Button> ____button)
                 {
+                    if (__instance.World.IsUserspace()) return;
+                   
                     if (!config.GetValue(MASTER_ENABLED) || __instance == null || __instance.Slot == null || ____button == null) return;
 
                     User activeUser = __instance.Slot.ActiveUserRoot?.ActiveUser;
