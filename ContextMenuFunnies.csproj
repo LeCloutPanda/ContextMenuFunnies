@@ -1,15 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{6ED4CE46-3DDB-4FCC-84D7-500BE9428999}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ContextMenuFunnies</RootNamespace>
     <AssemblyTitle>ContextMenuFunnies</AssemblyTitle>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <TargetFramework>net9.0</TargetFramework>
-	<LangVersion>10</LangVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
     <GamePath>$(MSBuildThisFileDirectory)Resonite</GamePath>
     <GamePath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Resonite\')">C:\Program Files (x86)\Steam\steamapps\common\Resonite\</GamePath>
     <GamePath Condition="Exists('$(HOME)\.steam\steam\steamapps\common\Resonite\')">$(HOME)/.steam/steam/steamapps/common/Resonite/</GamePath>
@@ -23,8 +17,8 @@
 
   <ItemGroup> 
     <Reference Include="HarmonyLib">
-      <HintPath Condition="Exists('$(GamePath)0Harmony.dll')">$(GamePath)0Harmony.dll</HintPath>
-      <HintPath>$(GamePath)rml_libs\0Harmony.dll</HintPath>
+      <HintPath Condition="Exists('$(GamePath)0Harmony-Net9.dll')">$(GamePath)0Harmony-Net9.dll</HintPath>
+      <HintPath>$(GamePath)rml_libs\0Harmony-Net9.dll</HintPath>
     </Reference>
     <Reference Include="Elements.Core">
       <HintPath>$(GamePath)Elements.Core.dll</HintPath>
