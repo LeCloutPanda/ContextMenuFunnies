@@ -10,15 +10,9 @@ using Renderite.Shared;
 
 namespace Context_Menu_Funnies;
 
-[BepInPlugin(GUID, Name, Version)]
-public class Patch : BaseResonitePlugin
+[ResonitePlugin("dev.lecloutpanda.contextmenufunnies", "Context Menu Funnies", "1.2.2", "LeCloutPanda", "https://github.com/LeCloutPanda/ContextMenuFunnies")]
+public class Patch : BasePlugin 
 {
-    public const string GUID = "dev.lecloutpanda.contextmenufunnies";
-    public const string Name = "Context Menu Funnies";
-    public const string Version = "1.2.2";
-    public override string Author => "LeCloutPanda";
-    public override string Link => "https://github.com/LeCloutPanda/ContextMenuFunnies";
-
     private static ConfigEntry<bool> MASTER_ENABLED;
     // Left
     private static ConfigEntry<float> LEFT_SEPERATION;
