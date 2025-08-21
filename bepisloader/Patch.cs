@@ -1,6 +1,7 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.NET.Common;
+using BepInExResoniteShim;
 using Elements.Core;
 using FrooxEngine;
 using FrooxEngine.UIX;
@@ -8,12 +9,6 @@ using HarmonyLib;
 using Renderite.Shared;
 
 namespace Context_Menu_Funnies;
-
-public abstract class BaseResonitePlugin : BasePlugin
-{
-    public abstract string Author { get; }
-    public abstract string Link { get; }
-}
 
 [BepInPlugin(GUID, Name, Version)]
 public class Patch : BaseResonitePlugin
