@@ -8,5 +8,5 @@ A [Resonite](https://resonite.com/) mod that lets you change the look of your co
 
 # BepisLoader Installation
 1. Install [BepisLoader](https://github.com/ResoniteModding/BepisLoader).
-2. Place [ContextMenuFunnies-BepisLoader.dll](https://github.com/LeCloutPanda/ContextMenuFunnies/releases/latest/download/ContextMenuFunnies-BepisLoader.dll) into your `rml_mods` folder. This folder should be at `C:\Program Files (x86)\Steam\steamapps\common\Resonite\BepInEx\plugins` for a default install.
+2. Place [ContextMenuFunnies-BepisLoader.dll](https://github.com/LeCloutPanda/ContextMenuFunnies/releases/latest/download/ContextMenuFunnies-BepisLoader.dll) into your `plugins` folder. This folder should be at `C:\Program Files (x86)\Steam\steamapps\common\Resonite\BepInEx\plugins` for a default install.
 3. Start the game. If you want to verify that the mod is working you can check your Resonite logs. 
