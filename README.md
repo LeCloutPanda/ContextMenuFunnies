@@ -1,5 +1,5 @@
 # Context Menu Funnies
-[Resonite](https://resonite.com/) that lets you change the look of your context menu.
+A [Resonite](https://resonite.com/) mod that lets you change the look of your context menu.
 
 # RML Installation
 1. Install [ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader).
