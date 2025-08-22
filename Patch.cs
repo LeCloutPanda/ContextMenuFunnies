@@ -10,6 +10,7 @@ using Renderite.Shared;
 
 namespace Context_Menu_Funnies;
 
+[BepInDependency("ResoniteModding.BepInExResoniteShim")]
 [ResonitePlugin("dev.lecloutpanda.contextmenufunnies", "Context Menu Funnies", "1.2.2", "LeCloutPanda", "https://github.com/LeCloutPanda/ContextMenuFunnies")]
 public class Patch : BasePlugin 
 {
