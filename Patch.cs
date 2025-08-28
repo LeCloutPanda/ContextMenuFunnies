@@ -8,10 +8,10 @@ using FrooxEngine.UIX;
 using HarmonyLib;
 using Renderite.Shared;
 
-namespace Context_Menu_Funnies;
+namespace ContextMenuFunnies;
 
-[BepInDependency("ResoniteModding.BepInExResoniteShim")]
-[ResonitePlugin("dev.lecloutpanda.contextmenufunnies", "Context Menu Funnies", "1.2.2", "LeCloutPanda", "https://github.com/LeCloutPanda/ContextMenuFunnies")]
+[ResonitePlugin(PluginMetadata.GUID, PluginMetadata.NAME, PluginMetadata.VERSION, PluginMetadata.AUTHORS, PluginMetadata.REPOSITORY_URL)]
+[BepInDependency(BepInExResoniteShim.PluginMetadata.GUID, BepInDependency.DependencyFlags.HardDependency)]
 public class Patch : BasePlugin 
 {
     private static ConfigEntry<bool> MASTER_ENABLED;
